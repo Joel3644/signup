@@ -1,0 +1,42 @@
+﻿@model Product;
+
+@{
+    ViewData["Title"] = "Purchase";
+}
+
+<div class="text-center">
+    <form class="m-2" method="post" asp-action="Purchase">   
+        <div class="form-group row mb-3">
+            <label asp-for="Name" class="col-sm-2 col-form-label">Product:</label>
+            <div class="col-sm-10">
+                <select asp-for="Name" class="form-control" required>
+                    <option value="">Seleziona</option>
+                    <option value="Smart Speaker">Smart Speaker</option>
+                    <option value="Wireless Charger">Wireless Charger</option>
+                    <option value="LED TV">LED TV</option>
+                    <option value="Bluetooth Headphones">Bluetooth Headphones</option>
+                    <option value="Digital Camera">Digital Camera</option>
+                    <option value="Gaming Laptop">Gaming Laptop</option>
+                    <option value="Smartwatch">Smartwatch</option>
+                    <option value="Portable Power Bank">Portable Power Bank</option>
+                    <option value="Noise-Canceling Earbuds">Noise-Canceling Earbuds</option>
+                    <option value="Smart Home Hub">Smart Home Hub</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <label asp-for="Quantity" class="col-sm-2 col-form-label">Quantity:</label>
+            <div class="col-sm-10">
+                <input asp-for="Quantity" class="form-control" required>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </form>
+    <form class="m-2" method="get" asp-action="Cart">
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Confirm</button>
+        </div>
+    </form>
+</div>
