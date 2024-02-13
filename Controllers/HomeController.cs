@@ -33,12 +33,15 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult Cart()
     {
+
         return View(product);
     }
     
     [HttpGet]
     public IActionResult SignUp()
     {
+        if(!string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUtente")))
+            return Redirect("\\home");
         return View();
     }
     
@@ -52,6 +55,10 @@ public class HomeController : Controller
     public IActionResult Conferma(User u)
     {
         users.Add(u);
+        HttpContext.Session.SetString("UserName", u.Name!);
+        HttpContext.Session.SetString("UserSurname", u.Surname!);
+        HttpContext.Session.SetString("UserEmail", u.Email!);
+        HttpContext.Session.SetString("UserPassword", u.Password!);
         return View(u);
     }
     
