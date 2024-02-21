@@ -40,8 +40,9 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult SignUp()
     {
+        //per qualche motivazione non funziona
         if(!string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUtente")))
-            return Redirect("\\home");
+            return Redirect("\\Home");
         return View();
     }
     
