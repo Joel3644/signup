@@ -33,7 +33,6 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult Cart()
     {
-
         return View(product);
     }
     
