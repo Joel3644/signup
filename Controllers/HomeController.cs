@@ -67,6 +67,18 @@ public class HomeController : Controller
         return View(p);
     }
 
+    [HttpGet]
+    public IActionResult SignIn()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult WelcomeBack()
+    {
+        return View();
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
