@@ -1,0 +1,8 @@
+@model User;
+
+@{
+    ViewData["Title"] = "Welcome back";
+}
+<div class="text-center">
+    <h1>Bentornato @Context.Session.GetString("UserName")</h1>
+</div>
