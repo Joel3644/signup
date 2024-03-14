@@ -8,7 +8,6 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     static readonly List<Product> product = new();
-    static readonly List<User> users = new();
 
     public HomeController(ILogger<HomeController> logger)
     {
@@ -39,9 +38,6 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult SignUp()
     {
-        //per qualche motivazione non funziona
-        if(!string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUtente")))
-            return Redirect("\\Home");
         return View();
     }
     
@@ -54,11 +50,13 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Conferma(User u)
     {
-        users.Add(u);
-        HttpContext.Session.SetString("UserName", u.Name!);
-        HttpContext.Session.SetString("UserSurname", u.Surname!);
-        HttpContext.Session.SetString("UserEmail", u.Email!);
-        HttpContext.Session.SetString("UserPassword", u.Password!);
+        HttpContext.Session.SetString("Username", u.Username!);
+        HttpContext.Session.SetString("Name", u.Name!);
+        HttpContext.Session.SetString("Surname", u.Surname!);
+        HttpContext.Session.SetString("Email", u.Email!);
+        HttpContext.Session.SetString("DateOfBirth", u.DateOfBirth.ToString()!);
+        HttpContext.Session.SetString("Sex", u.Sex!);
+        HttpContext.Session.SetString("Password", u.Password!);
         return View(u);
     }
     
