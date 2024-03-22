@@ -12,7 +12,6 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private UserContext db = new UserContext();
-    static readonly List<Product> product = new();
 
     public HomeController(ILogger<HomeController> logger)
     {
@@ -29,8 +28,12 @@ public class HomeController : Controller
         return View();
     }
 
+    [HttpGet]
     public IActionResult Purchase()
     {
+        if (string.IsNullOrEmpty(HttpContext.Session.GetString("Username"))){
+            return View("Login");
+        }
         return View();
     }
 
@@ -40,7 +43,7 @@ public class HomeController : Controller
         if (string.IsNullOrEmpty(HttpContext.Session.GetString("Username"))){
             return View("Login");
         }
-        return View(product);
+        return View(db);
     }
     
     [HttpGet]
@@ -76,7 +79,10 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Purchase(Product p)
     {
-        product.Add(p);
+        if(p.Name != null){
+            db.Products.Add(p);
+            db.SaveChanges();
+        }
         return View(p);
     }
 

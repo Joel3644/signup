@@ -1,4 +1,4 @@
-﻿@model List<Product>;
+﻿@model UserContext;
 @{
     ViewData["Title"] = "Cart";
 }
@@ -19,18 +19,18 @@
             </tr>
         </thead>
         <tbody>
-            @{
-            foreach(var thing in Model){
+            @foreach(var thing in Model.Products){
                 <tr>
-                    <td scope="row">@thing.Name</td>
-                    <td scope="row">@thing.Quantity</td>
-                    <td>
-                        <button class="btn btn-danger position-relative p-3">
-                            <img src="~/img/TrashBin.png" class="img-fluid position-absolute top-50 translate-middle" style="max-width: 2em; height: auto;"/>
-                        </button>
-                    </td>
+                    @if(thing.Name != null){
+                        <td scope="row">@thing.Name</td>
+                        <td scope="row">@thing.Quantity</td>
+                        <td>
+                            <button class="btn btn-danger position-relative p-3" onclick="location.href='@Url.Action("Delete", "Home", new { i = thing.Id })'">
+                                <img src="~/img/TrashBin.png" class="img-fluid position-absolute top-50 translate-middle" style="max-width: 2em; height: auto;"/>
+                            </button>
+                        </td>
+                    }
                 </tr>
-                }
             }
         </tbody>
     </table>
