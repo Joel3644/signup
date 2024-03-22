@@ -58,13 +58,25 @@ public class HomeController : Controller
         return View(u);
     }
     
+    public IActionResult Profile()
+    {
+        User u;
+        foreach(var thing in db.Users){
+            if(thing.Username == HttpContext.Session.GetString("Username")){
+                u = thing;
+                return View(u);
+            }
+        }
+        
+        return View();
+    }
+
     [HttpPost]
     public IActionResult Profile(User u)
     {
         u.ToHash();
         foreach(var thing in db.Users){
             if(thing.Username == u.Username && thing.Password == u.Password){
-                TempData["AlertMessage"] = "User already exists. Please log in.";
                 return View("Login");
             }
         }
@@ -91,6 +103,12 @@ public class HomeController : Controller
     {
         return View();
     }
+
+    public IActionResult Logout()
+    {
+        HttpContext.Session.SetString("Username", "");
+        return View("Login");
+    }
     
     [HttpGet]
     public IActionResult UserList()
@@ -110,7 +128,6 @@ public class HomeController : Controller
             }
         }
         if(!Found){
-            TempData["AlertMessage"] = "Invalid username or password. Please try again.";
             return RedirectToAction("Login");
         }
         return RedirectToAction("Index");

@@ -2,11 +2,6 @@
 @{
     ViewData["Title"] = "Cart";
 }
-@{
-    if(!string.IsNullOrEmpty(Context.Session.GetString("NomeUtente"))){
-        <p>@Context.Session.GetString("UserEmail")</p>
-    }
-}
 
 <div class="text-center">
     <h1>This is your cart</h1>

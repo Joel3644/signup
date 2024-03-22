@@ -6,40 +6,35 @@
 
 <div class="text-center">
     <h1>Bentornato, @Context.Session.GetString("Username")</h1>
-    @if(Model != null){
-        <table class="table-dark">
-            <tr>
-                <td>Username</td>
-                <td>@Model.Username</td>
-            </tr>
-            <tr>
-                <td>Nome</td>
-                <td>@Model.Name</td>
-            </tr>
-            <tr>
-                <td>Cognome</td>
-                <td>@Model.Surname</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>@Model.Email</td>
-            </tr>
-            <tr>
-                <td>Data di Nascita</td>
-                <td>@Model.DateOfBirth</td>
-            </tr>
-            <tr>
-                <td>Sesso</td>
-                <td>@Model.Sex</td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td>@Model.Password</td>
-            </tr>
-        </table>
-
-        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Logout", "Home")'">Logout</button>
-    }else{
-        <p></p>
-    }
+    <table class="table table-hover text-center">
+        <tr class="table-dark">
+            <td scope="row">Username</td>
+            <td scope="row">@Model.Username</td>
+        </tr>
+        <tr class="table-dark">
+            <td scope="row">Nome</td>
+            <td scope="row">@Model.Name</td>
+        </tr>
+        <tr class="table-dark">
+            <td scope="row">Cognome</td>
+            <td scope="row">@Model.Surname</td>
+        </tr>
+        <tr class="table-dark">
+            <td scope="row">Email</td>
+            <td scope="row">@Model.Email</td>
+        </tr>
+        <tr class="table-dark">
+            <td scope="row">Data di Nascita</td>
+            <td scope="row">@Model.DateOfBirth</td>
+        </tr>
+        <tr class="table-dark">
+            <td scope="row">Sesso</td>
+            <td scope="row">@Model.Sex</td>
+        </tr>
+        <tr class="table-dark">
+            <td scope="row">Password</td>
+            <td scope="row">@Model.Password</td>
+        </tr>
+    </table>
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Logout", "Home")'">Logout</button>
 </div>
