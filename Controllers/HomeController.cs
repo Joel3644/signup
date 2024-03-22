@@ -1,12 +1,17 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using dervishi.joel._5i.PrimaWeb.Models;
+using System.Security.Cryptography;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace dervishi.joel._5i.PrimaWeb.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private UserContext db = new UserContext();
     static readonly List<Product> product = new();
 
     public HomeController(ILogger<HomeController> logger)
@@ -48,15 +53,20 @@ public class HomeController : Controller
     }
     
     [HttpPost]
-    public IActionResult Conferma(User u)
+    public IActionResult Profile(User u)
     {
+        u.ToHash();
+        foreach(var thing in db.Users){
+            if(thing.Username == u.Username && thing.Password == u.Password){
+                TempData["AlertMessage"] = "User already exists. Please log in.";
+                return View("Login");
+            }
+        }
+        db.Users.Add(u);
+        db.SaveChanges();
+
         HttpContext.Session.SetString("Username", u.Username!);
-        HttpContext.Session.SetString("Name", u.Name!);
-        HttpContext.Session.SetString("Surname", u.Surname!);
-        HttpContext.Session.SetString("Email", u.Email!);
-        HttpContext.Session.SetString("DateOfBirth", u.DateOfBirth.ToString()!);
-        HttpContext.Session.SetString("Sex", u.Sex!);
-        HttpContext.Session.SetString("Password", u.Password!);
+
         return View(u);
     }
     
@@ -68,15 +78,15 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public IActionResult SignIn()
+    public IActionResult Login()
     {
         return View();
     }
-
-    [HttpPost]
-    public IActionResult WelcomeBack()
+    
+    [HttpGet]
+    public IActionResult UserList()
     {
-        return View();
+        return View(db);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,0 +1,45 @@
+@model User;
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="text-center">
+    <h1>Bentornato, @Context.Session.GetString("Username")</h1>
+    @if(Model != null){
+        <table class="table-dark">
+            <tr>
+                <td>Username</td>
+                <td>@Model.Username</td>
+            </tr>
+            <tr>
+                <td>Nome</td>
+                <td>@Model.Name</td>
+            </tr>
+            <tr>
+                <td>Cognome</td>
+                <td>@Model.Surname</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <td>Data di Nascita</td>
+                <td>@Model.DateOfBirth</td>
+            </tr>
+            <tr>
+                <td>Sesso</td>
+                <td>@Model.Sex</td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>@Model.Password</td>
+            </tr>
+        </table>
+
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Logout", "Home")'">Logout</button>
+    }else{
+        <p></p>
+    }
+</div>
