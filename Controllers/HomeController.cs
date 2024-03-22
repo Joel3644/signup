@@ -37,6 +37,9 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult Cart()
     {
+        if (string.IsNullOrEmpty(HttpContext.Session.GetString("Username"))){
+            return View("Login");
+        }
         return View(product);
     }
     
@@ -87,6 +90,35 @@ public class HomeController : Controller
     public IActionResult UserList()
     {
         return View(db);
+    }
+
+    public IActionResult Verify(User u){
+        u.ToHash();
+        bool Found = false;
+
+        foreach(var thing in db.Users){
+            if(thing.Username == u.Username && thing.Password == u.Password){
+                HttpContext.Session.SetString("Username", u.Username!);
+                Found = true;
+                break;
+            }
+        }
+        if(!Found){
+            TempData["AlertMessage"] = "Invalid username or password. Please try again.";
+            return RedirectToAction("Login");
+        }
+        return RedirectToAction("Index");
+    }
+
+    public IActionResult Delete(int i)
+    {
+        var query = db.Products.Where(c => c.Id.Equals(i)).ToList();
+        foreach (var item in query)
+        {
+            db.Products.Remove(item);
+        }
+        db.SaveChanges();
+        return View("Cart", db);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
