@@ -398,3 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 .vscode/launch.json
 .vscode/tasks.json
+Data/Users.db-shm
+Data/Users.db-wal
