@@ -400,3 +400,4 @@ FodyWeavers.xsd
 .vscode/tasks.json
 Data/Users.db-shm
 Data/Users.db-wal
+Data/Users.db-shm
